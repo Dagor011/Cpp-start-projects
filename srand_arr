@@ -1,0 +1,27 @@
+#include <iostream>
+#include <stdlib.h>
+#include <time.h>
+
+int* rand_arr(int& N) {
+    std::cout << "enter num" << std::endl;
+    std::cin >> N;
+
+    int* arr = new int[N];
+
+    for (int i = 0; i < N; i++) {
+
+        arr[i] = rand() % 10;
+        std::cout << arr[i];
+
+
+
+    }
+
+    return arr;
+}
+
+int main() {
+    int N;
+    int* arr = rand_arr(N);
+    delete[] arr; 
+}
