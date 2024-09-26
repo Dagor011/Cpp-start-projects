@@ -6,12 +6,16 @@
 
 using namespace std;
 
-int* result(int& fnum) {
+int arr[8]{};
+int fnum;
 
-	int c = 3;
-	int arr[8]{};
-	int i; 
-	for (i = 0; fnum != 1; i++)
+
+int* result(int& fnum, int* arr) {
+	int& p = fnum;
+	int c = 0;
+	
+	int i;
+	for (i = 0; fnum > 0; i++)
 	{
 		c = fnum % 2;
 		fnum = fnum / 2;
@@ -19,10 +23,9 @@ int* result(int& fnum) {
 		cout << arr[i];
 
 	}
-	arr[i] = 1;
-	cout << arr[i] << endl;
+	
 
-
+	
 
 	return arr;
 
@@ -32,10 +35,10 @@ int* result(int& fnum) {
 
 int main()
 {
-	int fnum;
+	
 	cout << "enter num";
 	cin >> fnum;
-	result(fnum);
+	result(fnum,arr);
 
 }
 
