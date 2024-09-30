@@ -1,0 +1,42 @@
+#include <iostream>
+#include <string> 
+
+
+using namespace std;
+struct STUDENT
+{
+    
+    std::string NAME;
+    unsigned GROUP;
+    unsigned age;
+    float SES[5]{};
+};
+
+int main()
+{
+    setlocale(0, "rus");
+    int i;
+    int const students=10;
+    STUDENT stud1[students]{};
+    for (i = 0; i < students; i++)
+    {
+        cout << "ФИО студента:" << endl;
+        cin >>stud1[i].NAME;
+        cout << "Введите номер группы " << endl;
+        cin >> stud1[i].GROUP;
+        for (int j = 0; j < 5; j++)
+        {
+            cout << "оценки студента:";
+            cin>> stud1[i].SES[j];
+        }
+        i++;
+    }
+
+
+    cout << stud1[i].NAME;
+
+    system("Pause");
+
+    return 0;
+}
+
