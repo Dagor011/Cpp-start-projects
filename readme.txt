@@ -17,3 +17,6 @@ unsignedint _maxValue// максимальное число в последов�
 
 
 https://www.cyberforum.ru/cpp-beginners/thread595997.html
+
+
+https://www.cyberforum.ru/cpp-beginners/thread595997.html?ysclid=m1qostxium974451016
