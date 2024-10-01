@@ -1,10 +1,13 @@
 #include <iostream>
 #include <string> 
+#include<cstdio>
 
 
 struct STUDENT
 {
+
     
+
     std::string NAME;
     unsigned GROUP;
     float SES[5]{};
@@ -15,25 +18,28 @@ int main()
     setlocale(0, "rus");
     int i;
     int j;
-    int const students=10;
+    int const students = 10;
     STUDENT stud1[students]{};
     for (i = 0; i < students; i++)
     {
-        std::cout << "ФИО студента:" <<std::endl;
-        getline(std::cin,stud1[i].NAME);//cin >>stud1[i].NAME;
-        std::cout << "Введите номер группы:" <<std:: endl;
+        std::cout << "ФИО студента:" << std::endl;
+        //std::cin.ignore();
+        std::cin >> stud1[i].NAME;// getline(std::cin, stud1[i].NAME);
+    
+
+        std::cout << "Введите номер группы:" << std::endl;
         std::cin >> stud1[i].GROUP;
         std::cout << "оценки студента:";
         for (j = 0; j < 5; j++)
         {
-            std::cin>> stud1[i].SES[j];
+            std::cin >> stud1[i].SES[j];
         }
-       
+
         i++;
     }
 
-    
-    
+
+
 
     system("Pause");
 
