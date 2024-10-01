@@ -5,9 +5,6 @@
 
 struct STUDENT
 {
-
-    
-
     std::string NAME;
     unsigned GROUP;
     float SES[5]{};
