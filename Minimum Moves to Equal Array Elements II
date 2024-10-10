@@ -1,0 +1,40 @@
+#include <iostream>
+#include <stdio.h>
+#include <vector>
+#include <algorithm>
+
+class Solution {
+    int n;
+public:
+    void getnums() {
+
+        std::vector<int> nums;
+        std::cout << "enter num for vector";
+        std::cin >> n;
+        for (int i = 0; i < n; i++) {
+            nums.push_back(i); // Добавляем элементы в коробку.
+            nums[i] = rand() % 11;
+            std::cout << nums.at(i); //<< std::endl;
+            
+        }
+        sort(nums.begin(), nums.end());
+        int x = nums[nums.size() / 2];
+        int ans = 0;
+        for (auto& i : nums) {
+            ans += abs(i - x);
+        }
+        std::cout << ans;
+    }
+};
+
+int main() {
+    setlocale(0, "RUS");
+    Solution solution;
+   
+    solution.getnums();
+
+    return 0;
+}
+
+
+
