@@ -1,0 +1,114 @@
+#include <iostream>
+#include <string>
+#include <fstream>
+
+
+class Book {
+private:
+    std::string title, author;
+    unsigned price, number;
+
+public:
+    // Конструктор
+    Book(const std::string& title, const std::string& author = "", unsigned price = 0, unsigned number = 0)
+        : title(title), author(author), price(price), number(number) {
+        std::cout << "Book created: " << title << std::endl;
+    }
+
+    // Деструктор
+    ~Book() {
+        std::cout << "Book deleted: " << title << std::endl;
+    }
+
+    // Методы
+    void enterBook() {
+  
+        std::fstream file;
+
+        std::cout << "ADD BOOKS" << std::endl;
+        std::cout << "Book Name: ";
+        std::getline(std::cin, title);
+        std::cout << "Author Name: ";
+        std::getline(std::cin, author);
+        std::cout << "Price: ";
+        std::cin >> price;
+        std::cout << "Number: ";
+        std::cin >> number;
+        std::cin.ignore(); // Игнорируем n symbol
+
+        file.open("D://book.txt", std::ios::out | std::ios::app);
+        if (file.is_open()) {
+            file << title << " " << author << " " << price << " " << number << "\n";
+            file.close();
+        }
+        else {
+            std::cout << "Error opening file!" << std::endl;
+        }
+    }
+
+ 
+    void getBook() {
+
+        std::fstream file;
+
+        file.open("D://book.txt", std::ios::in);
+        if (!file) {
+            std::cout << "\nFile Opening Error!" << std::endl;
+            return;
+        }
+
+        std::cout << "\n\nBook ID\t\tBook\t\tAuthor\t\tNumber of Books\n\n";
+        while (file >> title >> author >> price >> number) {
+            std::cout << "  " << title << "\t\t" << author << "\t\t" << price << "\t\t" << number << "\n\n";
+        }
+
+        file.close();
+        system("pause");
+    }
+};
+
+int main() {
+    setlocale(LC_ALL, "Russian");
+    bool online = true;
+    unsigned choice = 0;
+
+    while (online) {
+        std::cout << " ---- C++ Program for Book-Shop ---- " << std::endl;
+        std::cout << "Enter '1' to create book" << std::endl;
+        std::cout << "Enter '2' to find book" << std::endl;
+        std::cout << "Enter '3' to change info about book" << std::endl;
+        std::cout << "Enter '4' to buy book" << std::endl;
+        std::cout << "Enter '5' to exit" << std::endl;
+        std::cin >> choice;
+        std::cin.ignore();
+
+        switch (choice) {
+        case 1: {
+            Book myBook("");
+            myBook.enterBook();
+            break;
+        }
+        case 2: {
+            Book myBook("");
+            myBook.getBook();
+            break;
+        }
+        case 3: {
+            std::cout << "Editing functionality not implemented yet." << std::endl;
+            break;
+        }
+        case 4: {
+            std::cout << "Buying functionality not implemented yet." << std::endl;
+            break;
+        }
+        case 5: {
+            online = false; 
+            break;
+        }
+        default:
+            std::cout << "Invalid choice. Please try again." << std::endl;
+        }
+    }
+
+    return 0;
+}
