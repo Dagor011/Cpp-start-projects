@@ -1,112 +1,150 @@
 #include <iostream>
+#include <vector>
 #include <string>
-#include <fstream>
-
 
 class Book {
+public:
+    std::string title;
+    std::string author;
+    double price;
+    int quantity;
+
+    Book(std::string t, std::string a, double p, int q)
+        : title(t), author(a), price(p), quantity(q) {
+    }
+    //~Book() {
+    //    std::cout << "Book deleted: " << title << std::endl;
+   // }
+
+};
+
+class BookStore {
 private:
-    std::string title, author;
-    unsigned price, number;
+    std::vector<Book> inventory;
 
 public:
-    // Конструктор
-    Book(const std::string& title, const std::string& author = "", unsigned price = 0, unsigned number = 0)
-        : title(title), author(author), price(price), number(number) {
-        std::cout << "Book created: " << title << std::endl;
-    }
+    void addBook() {
+        std::string title, author;
+        double price;
+        int quantity;
 
-    // Деструктор
-    ~Book() {
-        std::cout << "Book deleted: " << title << std::endl;
-    }
-
-    // Методы
-    void enterBook() {
-  
-        std::fstream file;
-
-        std::cout << "ADD BOOKS" << std::endl;
-        std::cout << "Book Name: ";
+        std::cout << "enter book title: ";
+        std::cin.ignore(); 
         std::getline(std::cin, title);
-        std::cout << "Author Name: ";
+        std::cout << "enter book author: ";
         std::getline(std::cin, author);
-        std::cout << "Price: ";
+        std::cout << "enter price: ";
         std::cin >> price;
-        std::cout << "Number: ";
-        std::cin >> number;
-        std::cin.ignore(); // Игнорируем n symbol
+        std::cout << "enter  quantity: ";
+        std::cin >> quantity;
 
-        file.open("D://book.txt", std::ios::out | std::ios::app);
-        if (file.is_open()) {
-            file << title << " " << author << " " << price << " " << number << "\n";
-            file.close();
-        }
-        else {
-            std::cout << "Error opening file!" << std::endl;
-        }
+        inventory.emplace_back(title, author, price, quantity);
+        std::cout << "Updated list.\n";
     }
 
- 
-    void getBook() {
+    void editBook() {
+        std::string title;
+        std::cout << "enter book title: ";
+        std::cin.ignore();
+        std::getline(std::cin, title);
 
-        std::fstream file;
+        for (auto& book : inventory) {
+            if (book.title == title) {
+                std::cout << "enter new title: ";
+                std::string newTitle;
+                std::getline(std::cin, newTitle);
+                if (!newTitle.empty()) book.title = newTitle;
 
-        file.open("D://book.txt", std::ios::in);
-        if (!file) {
-            std::cout << "\nFile Opening Error!" << std::endl;
-            return;
+                std::cout << "enter new author: ";
+                std::string newAuthor;
+                std::getline(std::cin, newAuthor);
+                if (!newAuthor.empty()) book.author = newAuthor;
+
+                std::cout << "enter new price: ";
+                std::string priceInput;
+                std::getline(std::cin, priceInput);
+                if (!priceInput.empty()) book.price = std::stod(priceInput);
+
+                std::cout << "enter new quantity: ";
+                std::string quantityInput;
+                std::getline(std::cin, quantityInput);
+                if (!quantityInput.empty()) book.quantity = std::stoi(quantityInput);
+
+                std::cout << "book info updated.\n";
+                return;
+            }
         }
+        std::cout << "not found.\n";
+    }
 
-        std::cout << "\n\nBook ID\t\tBook\t\tAuthor\t\tNumber of Books\n\n";
-        while (file >> title >> author >> price >> number) {
-            std::cout << "  " << title << "\t\t" << author << "\t\t" << price << "\t\t" << number << "\n\n";
+    void buyBook() {
+        std::string title;
+        std::cout << "enter title: ";
+        std::cin.ignore();
+        std::getline(std::cin, title);
+
+        for (auto& book : inventory) {
+            if (book.title == title) {
+                if (book.quantity > 0) {
+                    book.quantity--;
+                    std::cout << "buing book: " << book.title << ". ostalos: " << book.quantity << " chtook.\n";
+                    return;
+                }
+                else {
+                    std::cout << "not enough book.\n";
+                    return;
+                }
+            }
         }
+        std::cout << "not found\n";
+    }
 
-        file.close();
-        system("pause");
+    void showInventory() {
+        std::cout << "\nBook List:\n";
+        for (const auto& book : inventory) {
+            std::cout << "title: " << book.title
+                << ", author: " << book.author
+                << ", price: " << book.price
+                << ", Кquantity: " << book.quantity << std::endl;
+        }
+        std::cout << std::endl;
     }
 };
 
 int main() {
-    setlocale(LC_ALL, "Russian");
+    BookStore store;
+    int choice;
     bool online = true;
-    unsigned choice = 0;
 
     while (online) {
         std::cout << " ---- C++ Program for Book-Shop ---- " << std::endl;
-        std::cout << "Enter '1' to create book" << std::endl;
-        std::cout << "Enter '2' to find book" << std::endl;
-        std::cout << "Enter '3' to change info about book" << std::endl;
-        std::cout << "Enter '4' to buy book" << std::endl;
-        std::cout << "Enter '5' to exit" << std::endl;
+        std::cout << "enter '1' to add new book" << std::endl;
+        std::cout << "enter '2' to edit information about the book" << std::endl;
+        std::cout << "enter '3' to buy the book" << std::endl;
+        std::cout << "enter '4' to show books" << std::endl;
+        std::cout << "enter '5' to exit" << std::endl;
         std::cin >> choice;
         std::cin.ignore();
 
         switch (choice) {
-        case 1: {
-            Book myBook("");
-            myBook.enterBook();
+        case 1:
+            store.addBook();
             break;
-        }
-        case 2: {
-            Book myBook("");
-            myBook.getBook();
+        case 2:
+            store.editBook();
             break;
-        }
-        case 3: {
-            std::cout << "Editing functionality not implemented yet." << std::endl;
+        case 3:
+            store.buyBook();
             break;
-        }
-        case 4: {
-            std::cout << "Buying functionality not implemented yet." << std::endl;
+        case 4:
+            store.showInventory();
             break;
-        }
-        case 5: {
-            online = false; 
+        case 5:
+            online = false;
             break;
-        }
         default:
-            std::cout << "Invalid choice. Please try again." << std::endl;
+            
+            std::cout << "incorected values!\n";
         }
     }
 
