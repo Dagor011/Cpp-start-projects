@@ -1,0 +1,178 @@
+#include <iostream>
+#include <iomanip> 
+
+int main() {
+    const int size = 10; 
+   
+    for (int i = 1; i <= size; ++i) {
+        std::cout << std::setw(4) << i; 
+        for (int j = 1; j <= size; ++j) {
+            std::cout << std::setw(4) << i * j;
+        }
+        std::cout << std::endl; 
+    }
+
+    return 0;
+}
+//------
+#include <iostream>
+#include <iomanip> 
+
+int main() {
+int const size=8;
+int x;
+int count{0};
+std::cout<< "enter x"<<std::endl;
+std::cin>>x;
+int arr[size]{1,2,3,2,5,6,7,8};
+
+for(int i=0;i<size;i++){
+ if(arr[i] ==x){
+     count++;
+ }
+}
+std::cout<<count<<std::endl;
+    return 0;
+}
+//-----
+#include <iostream>
+#include <iomanip> 
+
+bool status(int number) {
+    if (number <= 1) return false; 
+    if (number <= 3) return true;  
+
+   
+    if (number % 2 == 0 || number % 3 == 0) return false;
+
+    
+    for (int i = 5; i * i <= number; i += 6) {
+        if (number % i == 0 || number % (i + 2) == 0) {
+            return false; 
+        }
+    }
+    return true; 
+}
+
+int main() {
+    int N;
+    std::cout << "enter N: ";
+    std::cin >> N;
+
+    std::cout << "nums do " << N << ":" << std::endl;
+    for (int i = 1; i <= N; i++) {
+        if (status(i)) {
+            std::cout << i << " "; 
+        }
+    }
+    std::cout << std::endl;
+
+    return 0;
+}
+//------
+#include <iostream>
+#include <iomanip> 
+
+
+int main() {
+    const int size = 9; 
+    for (int i = 0; i < size; i++) { 
+        for (int j = 0; j < size; j++) { 
+            
+            int num = (i + j) % size + 1;
+            std::cout << num; 
+        }
+        std::cout << std::endl; 
+    }
+
+    return 0;
+}
+//------
+#include <iostream>
+#include <vector>
+#include <string>
+
+int main() {
+    std::vector<std::string> stringVector = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November"};
+    std::vector<std::string> reversedMonths;
+
+    for (const std::string& month : stringVector) {
+        std::string reversedMonth;
+
+        for (int i = month.size() - 1; i >= 0; --i) {
+            reversedMonth += month[i];
+        }
+        reversedMonths.push_back(reversedMonth); 
+    }
+
+    for (const std::string& month : stringVector) {
+        std::cout << month << std::endl;
+    }
+
+    for (const std::string& reversedMonth : reversedMonths) {
+        std::cout << reversedMonth << std::endl;
+    }
+
+    return 0;
+}
+
+//-----
+#include <iostream>
+#include <iomanip> 
+#include <vector>
+#include <string>
+
+
+int main() {
+     
+      
+        double a;
+    std::cout << "enter a: ";
+    std::cin >> a;
+
+    double sum = 0.0; 
+
+ 
+    for (int i = 1; sum <= a; i++) {
+        sum += 1.0 / i; 
+    }
+
+    std::cout << sum << std::endl;
+    
+    return 0;
+}
+//-----
+#include <iostream>
+#include <iomanip> 
+#include <vector>
+#include <string>
+
+
+int main() {
+     
+      
+std::string word;
+
+  
+    std::cout << "enter word: ";
+    std::cin >> word;
+
+    bool stat = true; 
+    int length = word.size(); 
+
+   
+    for (int i = 0; i < (length / 2); ++i) {
+        if (word[i] != word[length - 1 - i]) {
+            stat = false; 
+            break; 
+        }
+    }
+
+    
+    if (stat) {
+        std::cout << word << " Y" << std::endl;
+    } else {
+        std::cout << word << " N." << std::endl;
+    }  
+    return 0;
+}
